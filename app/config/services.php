@@ -26,27 +26,27 @@ $di->set('url', function () use ($config) {
 /**
  * Setting up the view component
  */
+$di->set('twigService', function($view, $di) use ($config) {
+    $options = array(
+        'debug' => true,
+        'charset' => 'UTF-8',
+        'base_template_class' => 'Twig_Template',
+        'strict_variables' => false,
+        'autoescape' => false,
+        $config->application->cacheDir,
+        'auto_reload' => null,
+        'optimizations' => -1,
+    );
+    $twig = new \Phalcon\Mvc\View\Engine\Twig($view, $di, $options);
+    return $twig;
+}, true);
+
 $di->set('view', function () use ($config) {
-
-    $view = new View();
-
+    $view = new \Phalcon\Mvc\View();
     $view->setViewsDir($config->application->viewsDir);
-
     $view->registerEngines(array(
-        '.volt' => function ($view, $di) use ($config) {
-
-            $volt = new VoltEngine($view, $di);
-
-            $volt->setOptions(array(
-                'compiledPath' => $config->application->cacheDir,
-                'compiledSeparator' => '_'
-            ));
-
-            return $volt;
-        },
-        '.phtml' => 'Phalcon\Mvc\View\Engine\Php'
+        ".twig" => 'twigService'
     ));
-
     return $view;
 }, true);
 

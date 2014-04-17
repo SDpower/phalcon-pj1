@@ -10,4 +10,14 @@ $loader->registerDirs(
         $config->application->controllersDir,
         $config->application->modelsDir
     )
-)->register();
+);
+
+$loader->registerNamespaces(array(
+    'Phalcon' => __DIR__ . '/../../app/library/incubator/Library/Phalcon/',
+    
+));
+
+$loader->register();
+
+require __DIR__ . '/../../app/library/Twig/lib/Twig/Autoloader.php';
+Twig_Autoloader::register();
