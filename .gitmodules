@@ -1,0 +1,6 @@
+[submodule "app/library/incubator"]
+	path = app/library/incubator
+	url = git@github.com:phalcon/incubator.git
+[submodule "app/library/Twig"]
+	path = app/library/Twig
+	url = git@github.com:fabpot/Twig.git
